@@ -53,7 +53,6 @@ class Example extends Phaser.Scene
             {
                 //  Blocked, we can't move
                 player.x -= 32;
-                player.angle = 180;
             }else if(tile.index===73){
                 player.x=48
                 player.y=48
@@ -74,7 +73,6 @@ class Example extends Phaser.Scene
             {
                 //  Blocked, we can't move
                 player.x += 32;
-                player.angle = 0;
             }else if(tile.index===73){
                 player.x=48
                 player.y=48
@@ -93,7 +91,6 @@ class Example extends Phaser.Scene
             {
                 //  Blocked, we can't move
                 player.y -= 32;
-                player.angle = -90;
             }else if(tile.index===73){
                 player.x=48
                 player.y=48
@@ -111,7 +108,6 @@ class Example extends Phaser.Scene
             {
                 //  Blocked, we can't move
                 player.y += 32;
-                player.angle = 90;
             }else if(tile.index===73){
                 player.x=48
                 player.y=48
