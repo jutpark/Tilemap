@@ -6,7 +6,7 @@ class Example extends Phaser.Scene
     light;
     player;
     radius = 35;
-    themeMusic;
+    //themeMusic;
 
     preload ()//"100 and 99 are both pink"
     {
@@ -190,7 +190,7 @@ const config = {
     backgroundColor: '#000000',
     parent: 'phaser-example',
     pixelArt: true,
-    scene: Example,
+    scene: Example
    
 };
 
