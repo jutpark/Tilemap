@@ -3,6 +3,10 @@ class Example extends Phaser.Scene
     propertiesText;
     marker;
     map;
+    player;
+    light;
+    radius = 35; 
+    
 
     preload ()//"100 and 99 are both pink"
     {
