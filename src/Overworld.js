@@ -1,3 +1,5 @@
+//const { GameObjects } = require("phaser");
+
 class Example extends Phaser.Scene
 {
     propertiesText;
@@ -6,6 +8,7 @@ class Example extends Phaser.Scene
     player;
     light;
     radius = 35; 
+    deaths = 0;
     
 
     preload ()//"100 and 99 are both pink"
@@ -49,7 +52,7 @@ class Example extends Phaser.Scene
         help.setScrollFactor(0);
         this.player = this.add.image(32 + 16, 32 + 16, 'player');
 
-        this.light = this.lights.addLight(0,0,this.radius,0xffffff,5.0).setScrollFactor(0.0);
+        this.light = this.lights.addLight(0,0,this.radius,0xffffff,2.0).setScrollFactor(0.0);
         this.lights.enable().setAmbientColor(0x000000);
         
         const music = this.sound.add('theme');
@@ -57,7 +60,54 @@ class Example extends Phaser.Scene
         music.volume = 0.25;
 
         this.sound.pauseOnBlur = true;
+
+        const lore1c = [
+            'A cold nights embrace touches your skin.',
+            'You have traveled backwards and now must find a way forward again.'
+        ];
+        const lore2c = [
+            'You have been here before but you can not remember why you came.',
+            'Each time you seemingly perish you come back with light that radiates from within you that is ever growing.'
+        ];
+        const lore3c = [
+            'You must leave there are voices in the night and hour grows late.',
+            'Bones scatter the floor as you traverse perhaps previous adventuers?',
+            'The shape of the body the bones make is familiar to you but you must press on.'
+        ];
+        const lore4c =[
+            'Theres markings on all the walls incompehensible to you.',
+            'Warnings maybe? A strange feeling comes over you as if your heart has been branded by an iron.',
+            'There is little time left you must leave.'
+        ]
+        const loreEndc = [
+            'Even though you have escaped some part of you still feels like it remains in that maze.',
+            'You are safe but something tells you will never be whole again.'
+        ];
+
+        const lore1 = this.add.text(100, 256, lore1c, { fontSize: '10px',color: '#00ff00',lineSpacing: 10 });
+        lore1.setDepth(2);
+        lore1.visible = false;
+
+        const lore2 = this.add.text(100, 256, lore2c, { fontSize: '10px',color: '#00ff00',lineSpacing: 10 });
+        lore2.setDepth(2);
+        lore2.visible = false;
+
+        const lore3 = this.add.text(100, 256, lore3c, { fontSize: '10px',color: '#00ff00',lineSpacing: 10 });
+        lore3.setDepth(2);
+        lore3.visible = false;      
+
+        const lore4 = this.add.text(100, 256, lore4c, { fontSize: '10px',color: '#00ff00', lineSpacing: 10 });
+        lore4.setDepth(2);
+        lore4.visible = false; 
+
+        const endLore = this.add.text(100, 256, loreEndc, { fontSize: '10px',color: '#00ff00', lineSpacing: 10 });
+        endLore.setDepth(2);
+        endLore.visible = false; 
+
+        const box = this.add.rectangle(0,0,10000,10000,"Black",1);
+        box.visible = false;
         
+
         this.input.keyboard.on('keydown-A', event =>
         {
 
@@ -71,10 +121,45 @@ class Example extends Phaser.Scene
                 this.player.x=48
                 this.player.y=48
                 //this.light = this.lights.addLight(0,0,this.radius+=this.radius,0xffffff,5.0).setScrollFactor(0.0); // increases light radius for when hitting a trap
-                this.light.radius += this.light.radius;
+                this.light.radius += 5;
+                this.deaths += 1;
+                if(this.deaths == 1)
+                {
+                    box.visible = true;
+                    lore1.visible = true;
+                    this.input.on('pointerdown',() => {
+                        lore1.visible = false;
+                        box.visible = false;
+                    });
+                }    
+                else if(this.deaths == 2) {
+                    box.visible = true;
+                    lore2.visible = true;
+                    this.input.on('pointerdown',() => {
+                        lore2.visible = false;
+                        box.visible = false;
+                    });
+                }
+                else if(this.deaths == 3){
+                    box.visible = true;
+                    lore3.visible = true;
+                    this.input.on('pointerdown',() => {
+                        lore3.visible = false;
+                        box.visible = false;
+                    });
+                }
+                else if(this.deaths == 4){
+                    box.visible = true;
+                    lore4.visible = true;
+                    this.input.on('pointerdown',() => {
+                        lore4.visible = false;
+                        box.visible = false;
+                    });
+                }
+
             }else if(tile.index===100){
-                var rect = this.add.rectangle(0, 0, 10000, 10000, "Black", 1);
-                this.add.text(150, 256, 'You escaped the maze and won! ', { fontSize: '30px' });
+                box.visible = true; 
+                endLore.visible = true; 
             }
 
         });
@@ -93,7 +178,41 @@ class Example extends Phaser.Scene
                 this.player.x=48
                 this.player.y=48
                 //this.light = this.lights.addLight(0,0,this.radius+=this.radius,0xffffff,5.0).setScrollFactor(0.0); // increases light radius for when hitting a trap
-                this.light.radius += this.light.radius;
+                this.light.radius += 5;
+                this.deaths += 1;
+                if(this.deaths == 1)
+                {
+                    box.visible = true;
+                    lore1.visible = true;
+                    this.input.on('pointerdown',() => {
+                        lore1.visible = false;
+                        box.visible = false;
+                    });
+                }    
+                else if(this.deaths == 2) {
+                    box.visible = true;
+                    lore2.visible = true;
+                    this.input.on('pointerdown',() => {
+                        lore2.visible = false;
+                        box.visible = false;
+                    });
+                }
+                else if(this.deaths == 3){
+                    box.visible = true;
+                    lore3.visible = true;
+                    this.input.on('pointerdown',() => {
+                        lore3.visible = false;
+                        box.visible = false;
+                    });
+                }
+                else if(this.deaths == 4){
+                    box.visible = true;
+                    lore4.visible = true;
+                    this.input.on('pointerdown',() => {
+                        lore4.visible = false;
+                        box.visible = false;
+                    });
+                }
             }
 
 
@@ -113,7 +232,41 @@ class Example extends Phaser.Scene
                 this.player.x=48
                 this.player.y=48
                 // this.light = this.lights.addLight(0,0,this.radius+=this.radius,0xffffff,5.0).setScrollFactor(0.0); // increases light radius for when hitting a trap
-                this.light.radius += this.light.radius;
+                this.light.radius += 5;
+                this.deaths += 1;
+                if(this.deaths == 1)
+                {
+                    box.visible = true;
+                    lore1.visible = true;
+                    this.input.on('pointerdown',() => {
+                        lore1.visible = false;
+                        box.visible = false;
+                    });
+                }    
+                else if(this.deaths == 2) {
+                    box.visible = true;
+                    lore2.visible = true;
+                    this.input.on('pointerdown',() => {
+                        lore2.visible = false;
+                        box.visible = false;
+                    });
+                }
+                else if(this.deaths == 3){
+                    box.visible = true;
+                    lore3.visible = true;
+                    this.input.on('pointerdown',() => {
+                        lore3.visible = false;
+                        box.visible = false;
+                    });
+                }
+                else if(this.deaths == 4){
+                    box.visible = true;
+                    lore4.visible = true;
+                    this.input.on('pointerdown',() => {
+                        lore4.visible = false;
+                        box.visible = false;
+                    });
+                }
             }
 
         });
@@ -132,7 +285,41 @@ class Example extends Phaser.Scene
                 this.player.x=48
                 this.player.y=48
                 //this.light = this.lights.addLight(0,0,this.radius+=5,0xffffff,5.0).setScrollFactor(0.0); // increases light radius for when hitting a trap
-                this.light.radius += this.light.radius;
+                this.light.radius += 5;
+                this.deaths += 1;
+                if(this.deaths == 1)
+                {
+                    box.visible = true;
+                    lore1.visible = true;    
+                    this.input.on('pointerdown',() => {
+                        lore1.visible = false;
+                        box.visible = false;
+                    });
+                }    
+                else if(this.deaths == 2) {
+                    box.visible = true;
+                    lore2.visible = true;
+                    this.input.on('pointerdown',() => {
+                        lore2.visible = false;
+                        box.visible = false;
+                    });
+                }
+                else if(this.deaths == 3){
+                    box.visible = true;
+                    lore3.visible = true;
+                    this.input.on('pointerdown',() => {
+                        lore3.visible = false;
+                        box.visible = false;
+                    });
+                }
+                else if(this.deaths == 4){
+                    box.visible = true;
+                    lore4.visible = true;
+                    this.input.on('pointerdown',() => {
+                        lore4.visible = false;
+                        box.visible = false;
+                    });
+                }
             }
 
         });
@@ -140,10 +327,10 @@ class Example extends Phaser.Scene
 
     update (time, delta)
     {
-        this.propertiesText.setText('Countdown: ' + formatTime(180-(time/1000)));
-        if(180-(time/1000)<=0){
+        this.propertiesText.setText('Countdown: ' + formatTime(60-(time/1000)));
+        if(60-(time/1000)<=0){
             var rect = this.add.rectangle(0, 0, 10000, 10000, "Black", 1);
-            this.add.text(150, 256, 'You didn\'t escape the maze and lost :(', { fontSize: '30px' });
+            this.add.text(150, 256, 'You didn\'t escape the maze and \n your soul is forever trapped there :(', { fontSize: '20px' });
         }
         
         //console.log(time)
